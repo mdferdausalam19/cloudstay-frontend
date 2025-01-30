@@ -1,13 +1,25 @@
 import Container from "../Container";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import avatarImg from "/placeholder.jpg";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await signOutUser();
+      navigate("/sign-in");
+      toast.success("Sign out successful.");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
@@ -66,8 +78,8 @@ const Navbar = () => {
                     {user ? (
                       <>
                         <div
-                          onClick={signOutUser}
-                          className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
+                          onClick={handleSignOut}
+                          className="px-3 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
                         >
                           Sign Out
                         </div>

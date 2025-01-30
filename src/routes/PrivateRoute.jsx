@@ -1,5 +1,5 @@
-import useAuth from "../features/auth/useAuth";
-import LoadingSpinner from "../components/ui/LoadingSpinner";
+import useAuth from "../hooks/useAuth";
+import LoadingSpinner from "../components/Shared/LoadingSpinner";
 import { Navigate, useLocation } from "react-router";
 
 const PrivateRoute = ({ children }) => {

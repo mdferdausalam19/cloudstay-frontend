@@ -18,7 +18,7 @@ const CategoryBox = ({ label, icon: Icon }) => {
   return (
     <div
       onClick={handleCategory}
-      className={`flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 transition cursor-pointer mb-2 ${
+      className={`flex flex-col items-center justify-center gap-2 p-3 border-b-2 transition cursor-pointer mb-2 ${
         category === label && "border-b-2 border-b-rose-500 text-rose-400"
       }`}
     >
