@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { FcGoogle } from "react-icons/fc";
+import { imageUpload } from "../../api/utils";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, googleSignIn, loading, setLoading } =
@@ -36,21 +37,14 @@ const SignUp = () => {
         "Password must include at least one lowercase letter."
       );
     }
-    const formData = new FormData();
-    formData.append("image", image[0]);
     try {
       setLoading(true);
 
       //upload image and get image url
-      const { data } = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${
-          import.meta.env.VITE_IMGBB_API_KEY
-        }`,
-        formData
-      );
+      const image_url = imageUpload(image);
 
       await createUser(email, password);
-      await updateUserProfile(name, data?.data?.display_url);
+      await updateUserProfile(name, image_url);
 
       navigate("/");
       toast.success("Sign up successful!");

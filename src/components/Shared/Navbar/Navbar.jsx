@@ -66,17 +66,23 @@ const Navbar = () => {
                 </div>
               </div>
               {isOpen && (
-                <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm">
+                <div className="absolute rounded-xl shadow-md   bg-white overflow-hidden right-0 top-12 text-sm">
                   <div className="flex flex-col cursor-pointer">
                     <Link
                       to="/"
-                      className="block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                      className="block md:hidden px-3 py-3 hover:bg-neutral-100 transition font-semibold"
                     >
                       Home
                     </Link>
 
                     {user ? (
                       <>
+                        <Link
+                          to={"/dashboard"}
+                          className="px-3 py-3 hover:bg-neutral-100  font-semibold cursor-pointer"
+                        >
+                          Dashboard
+                        </Link>
                         <div
                           onClick={handleSignOut}
                           className="px-3 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
