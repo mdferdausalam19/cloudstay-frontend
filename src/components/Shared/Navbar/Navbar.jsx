@@ -5,11 +5,19 @@ import { Link, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import avatarImg from "/placeholder.jpg";
 import toast from "react-hot-toast";
+import HostRequestModal from "../../Modal/HostRequestModal";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleSignOut = async () => {
     try {
@@ -18,6 +26,26 @@ const Navbar = () => {
       toast.success("Sign out successful.");
     } catch (err) {
       toast.error(err.message);
+    }
+  };
+
+  const handleModal = async () => {
+    try {
+      const currentUser = {
+        email: user?.email,
+        role: "guest",
+        status: "Requested",
+      };
+      const { data } = await axiosSecure.put(`/users`, currentUser);
+      if (data.modifiedCount > 0) {
+        toast.success("Success! Please wait of admin confirmation.");
+      } else {
+        toast.error("Please wait for admin approval.");
+      }
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      closeModal();
     }
   };
 
@@ -37,15 +65,19 @@ const Navbar = () => {
               <div className="flex flex-row items-center gap-3">
                 {/* Become A Host btn */}
                 <div className="hidden md:block">
-                  {!user && (
-                    <button
-                      disabled={!user}
-                      className="disabled:cursor-not-allowed cursor-pointer hover:bg-neutral-100 py-3 px-4 text-sm font-semibold rounded-full  transition"
-                    >
-                      Host your home
-                    </button>
-                  )}
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    disabled={!user}
+                    className="disabled:cursor-not-allowed cursor-pointer hover:bg-neutral-100 py-3 px-4 text-sm font-semibold rounded-full  transition"
+                  >
+                    Host your home
+                  </button>
                 </div>
+                <HostRequestModal
+                  isModalOpen={isModalOpen}
+                  closeModal={closeModal}
+                  handleModal={handleModal}
+                ></HostRequestModal>
                 {/* Dropdown btn */}
                 <div
                   onClick={() => setIsOpen(!isOpen)}
@@ -57,7 +89,7 @@ const Navbar = () => {
                     <img
                       className="rounded-full"
                       referrerPolicy="no-referrer"
-                      src={user && user.photoURL ? user.photoURL : avatarImg}
+                      src={user && user?.photoURL ? user?.photoURL : avatarImg}
                       alt="profile"
                       height="30"
                       width="30"
