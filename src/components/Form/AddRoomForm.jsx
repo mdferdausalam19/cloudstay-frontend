@@ -3,6 +3,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { categories } from "../Categories/CategoriesData";
 import { useForm } from "react-hook-form";
+import { TbFidgetSpinner } from "react-icons/tb";
 const AddRoomForm = ({
   dates,
   handleDates,
@@ -11,6 +12,7 @@ const AddRoomForm = ({
   setImagePreview,
   handleImage,
   imageText,
+  loading,
 }) => {
   const {
     register,
@@ -235,10 +237,15 @@ const AddRoomForm = ({
         </div>
 
         <button
+          disabled={loading}
           type="submit"
           className="w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-rose-500 cursor-pointer"
         >
-          Save & Continue
+          {loading ? (
+            <TbFidgetSpinner className="m-auto animate-spin" />
+          ) : (
+            "Sava & Continue"
+          )}
         </button>
       </form>
     </div>

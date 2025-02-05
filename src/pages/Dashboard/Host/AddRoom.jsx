@@ -6,15 +6,18 @@ import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 
 const AddRoom = () => {
   const [imagePreview, setImagePreview] = useState([]);
   const [imageText, setImageText] = useState("Upload Image");
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
   const [dates, setDates] = useState({
     startDate: new Date(),
-    endDate: null,
+    endDate: new Date(),
     key: "selection",
   });
   const handleDates = (item) => {
@@ -29,14 +32,18 @@ const AddRoom = () => {
     onSuccess: (data) => {
       if (data.insertedId) {
         toast.success("Room added Successfully");
+        navigate("/dashboard/my-listings");
+        setLoading(false);
       }
     },
     onError: () => {
       toast.error("Unable to add the room. Please try again.");
+      setLoading(false);
     },
   });
 
   const handleAddRoom = async (data) => {
+    setLoading(true);
     const {
       bathrooms,
       bedrooms,
@@ -76,6 +83,7 @@ const AddRoom = () => {
       await mutateAsync({ roomData });
     } catch (err) {
       toast.error(err?.message);
+      setLoading(false);
     }
   };
   const handleImage = (file) => {
@@ -95,6 +103,7 @@ const AddRoom = () => {
         imagePreview={imagePreview}
         handleImage={handleImage}
         imageText={imageText}
+        loading={loading}
       ></AddRoomForm>
     </>
   );
