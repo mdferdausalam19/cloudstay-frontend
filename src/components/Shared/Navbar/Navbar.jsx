@@ -38,7 +38,7 @@ const Navbar = () => {
       };
       const { data } = await axiosSecure.put(`/users`, currentUser);
       if (data.modifiedCount > 0) {
-        toast.success("Success! Please wait of admin confirmation.");
+        toast.success("Success! Please wait for admin confirmation.");
       } else {
         toast.error("Please wait for admin approval.");
       }

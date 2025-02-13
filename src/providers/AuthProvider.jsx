@@ -99,7 +99,7 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     });
     return () => unsubscribe();
-  }, []);
+  }, [user?.email]);
 
   const authInfo = {
     user,

@@ -41,7 +41,7 @@ const SignUp = () => {
       setLoading(true);
 
       //upload image and get image url
-      const image_url = imageUpload(image);
+      const image_url = await imageUpload(image[0]);
 
       await createUser(email, password);
       await updateUserProfile(name, image_url);
