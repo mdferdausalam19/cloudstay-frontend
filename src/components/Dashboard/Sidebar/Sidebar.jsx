@@ -14,16 +14,22 @@ import toast from "react-hot-toast";
 import HostMenu from "./Menu/HostMenu";
 import GuestMenu from "./Menu/GuestMenu";
 import AdminMenu from "./Menu/AdminMenu";
+import ToggleBtn from "../../Shared/Button/ToggleBtn";
 
 const Sidebar = () => {
   const { signOutUser } = useAuth();
   const [isActive, setActive] = useState(false);
+  const [toggle, setToggle] = useState(true);
   const [role] = useRole();
   const navigate = useNavigate();
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
     setActive(!isActive);
+  };
+
+  const toggleHandler = () => {
+    setToggle(!toggle);
   };
 
   const handleSignOut = async () => {
@@ -77,7 +83,12 @@ const Sidebar = () => {
 
           {/* Nav Items */}
           <div className="flex flex-col justify-between flex-1 mt-6">
-            {/* Conditional toggle button here.. */}
+            {role === "host" && (
+              <ToggleBtn
+                toggleHandler={toggleHandler}
+                toggle={toggle}
+              ></ToggleBtn>
+            )}
 
             {/*  Menu Items */}
             <nav>
@@ -89,7 +100,13 @@ const Sidebar = () => {
               ></MenuItem>
 
               {role === "guest" && <GuestMenu></GuestMenu>}
-              {role === "host" && <HostMenu></HostMenu>}
+              {role === "host" ? (
+                toggle ? (
+                  <HostMenu></HostMenu>
+                ) : (
+                  <GuestMenu></GuestMenu>
+                )
+              ) : undefined}
               {role === "admin" && <AdminMenu></AdminMenu>}
             </nav>
           </div>

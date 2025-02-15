@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { toast } from "react-hot-toast";
+import useAuth from "../../../hooks/useAuth";
 
 const UserDataRow = ({ user, refetch }) => {
+  const { user: signedInUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
 
@@ -26,12 +28,21 @@ const UserDataRow = ({ user, refetch }) => {
   });
 
   const handleUpdateUserModal = async (selected) => {
-    const user = {
+    if (signedInUser?.email === user?.email) {
+      toast.error("Action is not permitted!");
+      return setIsOpen(false);
+    }
+
+    // if (user?.status === "Verified") {
+    //   return toast.error("User did not make a request!");
+    // }
+
+    const userRole = {
       role: selected,
       status: "Verified",
     };
     try {
-      await mutateAsync(user);
+      await mutateAsync(userRole);
     } catch (err) {
       toast.error(err?.message);
     }
