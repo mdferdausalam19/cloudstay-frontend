@@ -4,20 +4,10 @@ import "react-date-range/dist/theme/default.css";
 import { categories } from "../Categories/CategoriesData";
 import { useForm } from "react-hook-form";
 import { TbFidgetSpinner } from "react-icons/tb";
-const AddRoomForm = ({
-  dates,
-  handleDates,
-  handleAddRoom,
-  imagePreview,
-  setImagePreview,
-  handleImage,
-  imageText,
-  loading,
-}) => {
+const AddRoomForm = ({ dates, handleDates, handleAddRoom, loading }) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -50,7 +40,7 @@ const AddRoomForm = ({
                 Category
               </label>
               <select
-                className="w-full px-4 py-3 border-rose-300 focus:outline-rose-500 rounded-md"
+                className="w-full px-4 py-3 border border-rose-300 focus:outline-rose-500 rounded-md"
                 name="category"
                 {...register("category", { required: true })}
               >
@@ -100,41 +90,20 @@ const AddRoomForm = ({
                 </span>
               )}
             </div>
-
-            <div className=" p-4 bg-white w-full  m-auto rounded-lg flex items-center justify-between gap-5">
-              <div className="file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg">
-                <div className="flex flex-col w-max mx-auto text-center">
-                  <label>
-                    <input
-                      className="text-sm cursor-pointer w-36 hidden"
-                      type="file"
-                      name="image"
-                      id="image"
-                      accept="image/*"
-                      hidden
-                      {...register("image", { required: true })}
-                      onChange={(e) => {
-                        handleImage(e.target.files);
-                      }}
-                    />
-                    <div className="bg-rose-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-rose-500">
-                      {imageText.length > 20
-                        ? imageText.split(".")[0].slice(0, 15) +
-                          "..." +
-                          imageText.split(".")[1]
-                        : imageText}
-                    </div>
-                    {errors.image && (
-                      <span className="text-sm text-red-500">
-                        This field is required
-                      </span>
-                    )}
-                  </label>
-                </div>
-              </div>
-              <div className="h-16 w-16 rounded-lg object-cover overflow-hidden flex justify-center items-center">
-                {imagePreview && <img src={imagePreview} />}
-              </div>
+            <div className="rounded-lg border border-rose-300">
+              <input
+                name="image"
+                type="file"
+                id="image"
+                accept="image/*"
+                {...register("image", { required: true })}
+                className="px-3 py-2 rounded-md text-sm file:mr-4 file:py-1 file:px-2 file:rounded-md file:font-semibold file:bg-gray-50 file:text-gray-700 cursor-pointer"
+              />
+              {errors.image && (
+                <span className="text-sm text-red-500">
+                  This field is required
+                </span>
+              )}
             </div>
             <div className="flex justify-between gap-2">
               <div className="space-y-1 text-sm">

@@ -16,7 +16,6 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const [loading, setLoading] = useState(false);
   const [roomData, setRoomData] = useState(room);
-  const [imageText, setImageText] = useState("Upload Image");
   const [dates, setDates] = useState({
     startDate: new Date(room?.from),
     endDate: new Date(room?.to),
@@ -27,7 +26,6 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
   const handleImage = async (image) => {
     setLoading(true);
     try {
-      setImageText(image[0]?.name);
       const image_url = await imageUpload(image[0]);
       setRoomData({ ...roomData, image: image_url });
       setLoading(false);
@@ -114,7 +112,6 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
                     loading={loading}
                     handleImage={handleImage}
                     setRoomData={setRoomData}
-                    imageText={imageText}
                   ></UpdateRoomForm>
                 </div>
                 <hr className="mt-8 " />

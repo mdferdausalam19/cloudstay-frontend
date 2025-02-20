@@ -9,8 +9,6 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 
 const AddRoom = () => {
-  const [imagePreview, setImagePreview] = useState([]);
-  const [imageText, setImageText] = useState("Upload Image");
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -85,10 +83,6 @@ const AddRoom = () => {
       setLoading(false);
     }
   };
-  const handleImage = (file) => {
-    setImagePreview(URL.createObjectURL(file[0]));
-    setImageText(file[0]?.name);
-  };
   return (
     <>
       <Helmet>
@@ -98,10 +92,6 @@ const AddRoom = () => {
         dates={dates}
         handleDates={handleDates}
         handleAddRoom={handleAddRoom}
-        setImagePreview={setImagePreview}
-        imagePreview={imagePreview}
-        handleImage={handleImage}
-        imageText={imageText}
         loading={loading}
       ></AddRoomForm>
     </>
