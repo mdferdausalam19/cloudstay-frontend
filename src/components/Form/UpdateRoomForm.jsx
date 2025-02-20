@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { categories } from "../Categories/categoriesData";
+import { categories } from "../Categories/CategoriesData";
 import { DateRange } from "react-date-range";
 const UpdateRoomForm = ({
   handleUpdateRoom,
