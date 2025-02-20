@@ -32,7 +32,7 @@ const MyListings = () => {
     onSuccess: (data) => {
       if (data.deletedCount > 0) {
         toast.success("Room data deleted successfully");
-        refetch()
+        refetch();
       }
     },
   });
@@ -110,7 +110,7 @@ const MyListings = () => {
                     <RoomDataRow
                       key={room?._id}
                       room={room}
-                
+                      refetch={refetch}
                       handleDelete={handleDelete}
                     ></RoomDataRow>
                   ))}
