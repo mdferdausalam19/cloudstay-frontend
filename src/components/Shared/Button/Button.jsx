@@ -4,7 +4,7 @@ const Button = ({ label, onClick, disabled, outline, small, icon: Icon }) => {
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`relative disabled:opacity-70 disabled:cursor-not-allowed rounded-lg hover:opacity-80 transition px-4 w-full
+      className={`relative disabled:opacity-70 disabled:cursor-not-allowed rounded-lg hover:opacity-80 transition px-4 w-full cursor-pointer
           ${outline ? "bg-white" : "bg-rose-500"}
           ${outline ? "border-black" : "border-rose-500"}
           ${outline ? "text-black" : "text-white"}

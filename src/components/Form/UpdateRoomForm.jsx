@@ -9,6 +9,7 @@ const UpdateRoomForm = ({
   loading,
   handleImage,
   setRoomData,
+  imageText,
 }) => {
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50">
@@ -102,7 +103,11 @@ const UpdateRoomForm = ({
                     hidden
                   />
                   <div className="bg-rose-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-rose-500">
-                    Upload Image
+                    {imageText.length > 20
+                      ? imageText.split(".")[0].slice(0, 15) +
+                        "..." +
+                        imageText.split(".")[1]
+                      : imageText}
                   </div>
                 </label>
               </div>

@@ -79,7 +79,6 @@ const AddRoom = () => {
         from,
         host,
       };
-      console.table(roomData);
       await mutateAsync({ roomData });
     } catch (err) {
       toast.error(err?.message);
@@ -87,8 +86,8 @@ const AddRoom = () => {
     }
   };
   const handleImage = (file) => {
-    setImagePreview(URL.createObjectURL(file));
-    setImageText(file?.name);
+    setImagePreview(URL.createObjectURL(file[0]));
+    setImageText(file[0]?.name);
   };
   return (
     <>

@@ -31,7 +31,7 @@ const SalesLineChart = ({ data }) => {
         />
       ) : (
         <>
-          <LoadingSpinner></LoadingSpinner>
+          <LoadingSpinner smallHeight></LoadingSpinner>
           <p className="text-center">No Data Available!</p>
         </>
       )}

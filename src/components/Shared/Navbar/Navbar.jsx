@@ -7,6 +7,7 @@ import avatarImg from "/placeholder.jpg";
 import toast from "react-hot-toast";
 import HostRequestModal from "../../Modal/HostRequestModal";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useRole from "../../../hooks/useRole";
 
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
@@ -14,6 +15,7 @@ const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
+  const [role] = useRole();
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -67,7 +69,7 @@ const Navbar = () => {
                 <div className="hidden md:block">
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    disabled={!user}
+                    disabled={!user || role !== "guest"}
                     className="disabled:cursor-not-allowed cursor-pointer hover:bg-neutral-100 py-3 px-4 text-sm font-semibold rounded-full  transition"
                   >
                     Host your home
@@ -98,7 +100,7 @@ const Navbar = () => {
                 </div>
               </div>
               {isOpen && (
-                <div className="absolute rounded-xl shadow-md   bg-white overflow-hidden right-0 top-12 text-sm">
+                <div className="absolute rounded-xl shadow-md   bg-white overflow-hidden right-0 top-12 text-sm min-w-20">
                   <div className="flex flex-col cursor-pointer">
                     <Link
                       to="/"

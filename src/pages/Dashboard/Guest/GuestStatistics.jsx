@@ -11,7 +11,7 @@ import SalesLineChart from "../../../components/Dashboard/Charts/SalesLineChart"
 const GuestStatistics = () => {
   const axiosSecure = useAxiosSecure();
   const { data: statsData = {}, isLoading } = useQuery({
-    queryKey: ["host-stats-data"],
+    queryKey: ["guest-stats-data"],
     queryFn: async () => {
       const { data } = await axiosSecure.get("/guest-stats");
       return data;

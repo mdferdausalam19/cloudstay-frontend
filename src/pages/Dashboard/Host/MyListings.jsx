@@ -41,7 +41,7 @@ const MyListings = () => {
     try {
       await mutateAsync(id);
     } catch (err) {
-      console.log(err.message);
+      toast.error(err.message);
     }
   };
 

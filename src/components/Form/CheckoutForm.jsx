@@ -88,7 +88,7 @@ const CheckoutForm = ({ handleCloseModal, bookingInfo, refetch }) => {
         toast.success("Room Booked Successfully!");
         navigate("/dashboard/my-bookings");
       } catch (err) {
-        console.log(err);
+        toast.error(err?.message);
       }
     }
   };

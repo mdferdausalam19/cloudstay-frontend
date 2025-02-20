@@ -113,9 +113,9 @@ const AddRoomForm = ({
                       accept="image/*"
                       hidden
                       {...register("image", { required: true })}
-                      // onChange={(e) => {
-                      //   handleImage(e.target.files);
-                      // }}
+                      onChange={(e) => {
+                        handleImage(e.target.files);
+                      }}
                     />
                     <div className="bg-rose-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-rose-500">
                       {imageText.length > 20

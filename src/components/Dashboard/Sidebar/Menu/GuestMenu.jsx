@@ -31,7 +31,6 @@ const GuestMenu = () => {
       } else {
         toast.error("Please wait for admin approval.");
       }
-      console.log(currentUser);
     } catch (err) {
       toast.error(err.message);
     } finally {
