@@ -5,8 +5,10 @@ export const imageUpload = async (image) => {
   formData.append("image", image);
 
   const { data } = await axios.post(
-    `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,
-    formData
+    `${import.meta.env.VITE_API_URL}/upload-image`,
+    formData,
+    { headers: { "Content-Type": "multipart/form-data" } }
   );
-  return data?.data?.display_url;
+
+  return data?.display_url;
 };
